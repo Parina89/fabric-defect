@@ -32,7 +32,7 @@ from torch.utils.data import DataLoader, Dataset
 #call vgg model
 vgg_model =  VGG19(include_top=True , weights='imagenet')
 for models in vgg_model.layers:
-models.trainable= False
+   models.trainable= False
 
 #converting from functionally model to sequential model
 #removing the last 2 alyer to get rid of output layer in VGG16
