@@ -70,7 +70,7 @@ if input_method == "File Uploader":
         uploaded_file_img = load_uploaded_image(uploaded_file)
         st.image(uploaded_file_img, caption="Uploaded Image", width=300)
         st.success("Image uploaded successfully!")
-elif input_method == "Camera Input":
+  elif input_method == "Camera Input":
     st.warning("Please allow access to your camera.")
     camera_image_file = st.camera_input("Click an Image")
     if camera_image_file:
