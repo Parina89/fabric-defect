@@ -17,31 +17,6 @@ from PIL import Image
 #from torch.utils.data import DataLoader, Dataset
 
 
-#call vgg model
-vgg_model =  VGG19(include_top=True , weights='imagenet')
-for models in vgg_model.layers:
-   models.trainable= False
-
-#converting from functionally model to sequential model
-#removing the last 2 alyer to get rid of output layer in VGG16
-vgg_model = keras.Model(inputs=vgg_model.input, outputs=vgg_model.layers[-2].output)
-model = keras.Sequential()
-for layer in vgg_model.layers:
-  model.add(layer)
-
-#add trianbles layers
-model.add(Dense(4056, activation='relu'))
-model.add(Dropout(0.35))
-model.add(Dense(1024, activation='relu'))
-model.add(Dropout(0.5))
-model.add(Dense(256, activation='relu'))
-model.add(Dropout(0.4))
-model.add(Dense(2, activation='softmax'))
-model.compile(optimizer="adam", loss=keras.losses.SparseCategoricalCrossentropy(), metrics=['accuracy'])
-
-early = tf.keras.callbacks.EarlyStopping(monitor='val_loss',patience=5)
-
-
 
 
 def load_uploaded_image(file):
