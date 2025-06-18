@@ -80,13 +80,3 @@ if input_method == "File Uploader":
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
-elif input_method == "Camera Input" and camera_file_img:
-   selected_img = camera_file_img
-else:
-   st.warning("Please upload or click an image.")
-   selected_img = None
-
-if selected_img:
-   with st.spinner("Analyzing image..."):
-   prediction = Anomaly_Detection(selected_img, data_folder)
-   st.success(prediction)
