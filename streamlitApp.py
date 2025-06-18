@@ -1,15 +1,3 @@
-#import tensorflow as tf 
-import tensorflow_datasets as tfds
-import keras 
-import numpy as np 
-import matplotlib.pyplot as plt
-
-
-import pandas as pd 
-from keras.applications import VGG19,Xception,VGG16
-from keras.layers import Dense , Conv2D , MaxPooling2D , Dropout,Flatten,Convolution2D
-from keras.models  import Sequential
-from tensorflow.keras.preprocessing.image import ImageDataGenerator
 import streamlit as st
 import io
 
