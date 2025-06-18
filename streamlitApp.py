@@ -61,7 +61,6 @@ def load_uploaded_image(file):
 
 st.subheader("Select Image Input Method")
 input_method = st.radio("options", ["File Uploader", "Camera Input"], label_visibility="collapsed")
-
 uploaded_file_img, camera_file_img = None, None
 
 if input_method == "File Uploader":
