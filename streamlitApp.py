@@ -13,8 +13,8 @@ import os
 
 
 from PIL import Image
-import torchvision.transforms as transforms
-from torch.utils.data import DataLoader, Dataset
+#import torchvision.transforms as transforms
+#from torch.utils.data import DataLoader, Dataset
 
 
 #call vgg model
