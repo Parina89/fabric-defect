@@ -1,12 +1,12 @@
 import streamlit as st
 import io
 
-#import torch
-#import torchvision.transforms as transforms
+import torch
+import torchvision.transforms as transforms
 from PIL import Image
 import numpy as np
 import os
-import torch
+#import torch
 import torch.nn as nn
 import torch.optim as optim
 
