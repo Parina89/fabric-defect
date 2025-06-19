@@ -38,7 +38,7 @@ class FabricDefectClassifier(nn.Module):
 @st.cache(allow_output_mutation=True)
 def load_model():
     model = FabricDefectClassifier()
-    url = 'https://drive_link_or_huggingface_link_to_pth_file'
+    url = 'https://drive.google.com/file/d/1rWsqzW6UIL5pxjczNH72d3_3WUl27Rza/view?usp=drive_link'
     urllib.request.urlretrieve(url, 'textile.h5')
     model_path = r"/README.md"  # <-- Update path
     model.load_state_dict(torch.load(model_path, map_location=device))
