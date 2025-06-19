@@ -5,7 +5,7 @@ from torchvision import datasets, transforms, models
 from torch.utils.data import DataLoader
 
 # Paths
-data_dir = r""  # CHANGE this to your dataset folder
+data_dir = r"D:\fabric_images"  # CHANGE this to your dataset folder
 
 # Data transforms
 transform = transforms.Compose([
