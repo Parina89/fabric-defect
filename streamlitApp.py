@@ -14,7 +14,7 @@ st.write("Upload an image of fabric and the AI model will classify it as 'Defect
 
 # Sidebar information
 with st.sidebar:
-    img = Image.open(r"overview_dataset.jpg")
+    img = Image.open(r"fabric.png")
     st.image(img)
     st.header("About Project")
     st.write("This app helps detect defects like stains on fabrics produced by power looms. It ensures quality control in real-time production environments using AI-based image classification.")
