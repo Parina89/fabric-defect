@@ -5,6 +5,7 @@ from torchvision import transforms, models
 from PIL import Image
 import numpy as np
 import os
+import urllib.request
 
 # Set page config
 st.set_page_config(page_title="Fabric Inspector", page_icon="🧵")
@@ -37,6 +38,8 @@ class FabricDefectClassifier(nn.Module):
 @st.cache(allow_output_mutation=True)
 def load_model():
     model = FabricDefectClassifier()
+    url = 'https://drive_link_or_huggingface_link_to_pth_file'
+    urllib.request.urlretrieve(url, 'textile.h5')
     model_path = r"/README.md"  # <-- Update path
     model.load_state_dict(torch.load(model_path, map_location=device))
     model.eval()
