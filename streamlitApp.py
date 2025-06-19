@@ -37,7 +37,7 @@ class FabricDefectClassifier(nn.Module):
 @st.cache(allow_output_mutation=True)
 def load_model():
     model = FabricDefectClassifier()
-    model_path = r""  # <-- Update path
+    model_path = r"/README.md"  # <-- Update path
     model.load_state_dict(torch.load(model_path, map_location=device))
     model.eval()
     return model.to(device)
