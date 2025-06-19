@@ -1,0 +1,16 @@
+pip>=25.1.1
+pillow==10.2.0
+matplotlib==3.5.1
+pandas==1.4.2
+scikit-learn==1.0.2
+scipy==1.8.0
+seaborn==0.11.2
+torchsummary==1.5.1
+urllib3==1.26.9
+torch==2.0.0
+torchvision==0.15.1
+numpy==1.21.0,<2.0.0
+streamlit==1.19.0
+opencv-python
+typing-extensions>=4.0.0
+altair==4.2.2
