@@ -70,7 +70,7 @@ def transform_image(image):
 # Prediction
 def get_prediction(image):
     image_tensor = transform_image(image).to(device)
-    outputs = model(image_tensor)
+    #outputs = model(image_tensor)
     _, predicted = torch.max(outputs, 1)
     return predicted.item()
 
@@ -83,7 +83,7 @@ if uploaded_file is not None:
     st.image(image, caption='Uploaded Fabric Image', use_column_width=True)
     st.write("Classifying...")
 
-    prediction = get_prediction(image)
+    #prediction = get_prediction(image)
     result = class_labels[prediction]
 
     st.success(f"Prediction: **{result}**")
