@@ -45,7 +45,7 @@ def load_model():
     model_path = "textile (1).pth"  # <-- Update path
     model.load_state_dict(torch.load(model_path, map_location=torch.device("cpu")))
     model.eval()
-    return model.to(device)
+    return model
 
 model = load_model()
 
