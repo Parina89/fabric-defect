@@ -87,7 +87,7 @@ if uploaded_file is not None:
     #result = class_labels[prediction]
 
     #st.success(f"Prediction: **{result}**")
-    if result == 'Defect-Free':
+    #if result == 'Defect-Free':
         st.info("The fabric appears to be free of defects.")
     else:
         st.warning("Stain detected! Please check this fabric.")
