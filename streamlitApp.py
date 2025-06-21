@@ -52,10 +52,10 @@ def load_model():
     #urllib.request.urlretrieve(url, 'textile.h5')
     model_path = r"textile.pth"  # <-- Update path
     model = torch.load(model_path, map_location=device)
-    model.eval()
+    #model.eval()
     return model
 
-#model = load_model()
+model = load_model()
 
 # Image Transformations
 def transform_image(image):
