@@ -44,13 +44,12 @@ class FabricDefectClassifier(nn.Module):
 # Load model (Assuming you have trained model stored as 'fabric_model.pth')
 @st.cache(allow_output_mutation=True)
 def load_model():
-    model = FabricDefectClassifier()
-    #url = 'https://drive.google.com/file/d/1rWsqzW6UIL5pxjczNH72d3_3WUl27Rza/view?usp=drive_link'
-    #urllib.request.urlretrieve(url, 'textile.h5')
-    model_path = r"textile.pth"  # <-- Update path
-    model = torch.load(model_path, map_location=device)
-    #model.eval()
+    model = FabricDefectClassifier()               # Instantiate model class
+    model.load_state_dict(torch.load("textile.pth", map_location=device))  # Load weights properly
+    model.to(device)
+    model.eval()
     return model
+
 
 model = load_model()
 
