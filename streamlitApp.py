@@ -75,7 +75,6 @@ def get_prediction(image):
        result = "Uncertain — manual check needed"
     else:
        result = class_labels[predicted.item()]
-
         _, predicted = torch.max(outputs, 1)  # get index of the max log-probability
     return predicted.item()                   # return as integer
 
