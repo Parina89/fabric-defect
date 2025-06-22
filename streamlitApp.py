@@ -70,7 +70,7 @@ def get_prediction(image):
     _, predicted = torch.max(outputs, 1)
     return predicted.item()
 
-class_labels = ['Defect-Free', 'Stain']  # adjust as per your training labels
+class_labels = ['defect-Free', 'stain']  # adjust as per your training labels
 
 if uploaded_file is not None:
     image = Image.open(uploaded_file).convert('RGB')
