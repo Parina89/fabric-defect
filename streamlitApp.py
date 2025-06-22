@@ -85,5 +85,8 @@ if uploaded_file is not None:
 
     if result == 'defect-free':
         st.info("The fabric appears to be free of defects.")
+    elif(result == 'stain'):
+        st.warning("Stain detected!Please check this fabric.")
     else:
-        st.warning("Stain detected! Please check this fabric.")
+        st.info("An error occured")
+
