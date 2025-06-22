@@ -20,10 +20,29 @@ with st.sidebar:
 # Device
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-# Load model (full model load)
+# Define model architecture (must match training model)
+class FabricDefectClassifier(nn.Module):
+    def __init__(self):
+        super(FabricDefectClassifier, self).__init__()
+        self.conv1 = nn.Conv2d(3, 16, kernel_size=3, padding=1)
+        self.pool = nn.MaxPool2d(2, 2)
+        self.conv2 = nn.Conv2d(16, 32, kernel_size=3, padding=1)
+        self.fc1 = nn.Linear(32 * 56 * 56, 128)
+        self.fc2 = nn.Linear(128, 2)
+
+    def forward(self, x):
+        x = self.pool(F.relu(self.conv1(x)))
+        x = self.pool(F.relu(self.conv2(x)))
+        x = x.view(-1, 32 * 56 * 56)
+        x = F.relu(self.fc1(x))
+        x = self.fc2(x)
+        return x
+
+# Load model correctly with state_dict
 @st.cache(allow_output_mutation=True)
 def load_model():
-    model = torch.load("textile.pth", map_location=device)  # Entire model loaded here
+    model = FabricDefectClassifier()
+    model.load_state_dict(torch.load("textile.pth", map_location=device)) # load state dict properly
     model.eval()
     return model
 
