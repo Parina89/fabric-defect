@@ -23,10 +23,10 @@ def load_model():
     num_ftrs = model.fc.in_features
     model.fc = nn.Linear(num_ftrs, 2)  # your 2 classes
     model.load_state_dict(torch.load("textile.pth", map_location=device))
-    model.eval()
+    #model.eval()
     return model
 
-model = load_model()
+#model = load_model()
 
 def transform_image(image):
     transform = transforms.Compose([
