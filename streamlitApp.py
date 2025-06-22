@@ -67,7 +67,6 @@ def transform_image(image):
 # Prediction
 def get_prediction(image):
     image = transform_image(image)  # Add batch dimension
-    outputs = model(image)  # Use the loaded model
     _, predicted = torch.max(outputs, 1)
     return predicted.item()
 
