@@ -44,12 +44,11 @@ class FabricDefectClassifier(nn.Module):
 # Load model (Assuming you have trained model stored as 'fabric_model.pth')
 @st.cache(allow_output_mutation=True)
 def load_model():
-    model = FabricDefectClassifier()               # Instantiate model class
-    model.load_state_dict(torch.load("textile.pth", map_location=device))  # Load weights properly
-    model.to(device)
-    model.eval()
+    model = FabricDefectClassifier()
+    model_path = r"textile.pth"  # <-- Update path
+    model.load_state_dict= torch.load(model_path, map_location=device)
+    #model.eval()
     return model
-
 
 model = load_model()
 
