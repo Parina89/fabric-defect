@@ -1,12 +1,8 @@
-
 import streamlit as st 
 import torch
 import torch.nn as nn
 from torchvision import transforms, models
 from PIL import Image
-import numpy as np
-import os
-import urllib.request
 import torch.nn.functional as F
 
 # Set page config
