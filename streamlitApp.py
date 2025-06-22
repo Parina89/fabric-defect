@@ -67,7 +67,7 @@ def transform_image(image):
 # Prediction
 def get_prediction(image):
     image = transform_image(image)  # Add batch dimension
-   # _, predicted = torch.max(outputs, 1)
+    _, predicted = torch.max(outputs, 1)
     return predicted.item()
 
 class_labels = ['Defect-Free', 'Stain']  # adjust as per your training labels
@@ -78,7 +78,7 @@ if uploaded_file is not None:
     st.write("Classifying...")
 
     #prediction = get_prediction(image)  
-    result = class_labels  
+    result = class_labels[get_prediction]
 
     st.success(f"Prediction: **{result}**")
 
