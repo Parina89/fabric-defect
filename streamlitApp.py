@@ -72,9 +72,9 @@ def get_prediction(image):
     probabilities = torch.nn.functional.softmax(outputs, dim=1)
     confidence, predicted = torch.max(probabilities, 1)
     if confidence.item() < 0.6:
-    result = "Uncertain — manual check needed"
+       result = "Uncertain — manual check needed"
     else:
-    result = class_labels[predicted.item()]
+       result = class_labels[predicted.item()]
 
         _, predicted = torch.max(outputs, 1)  # get index of the max log-probability
     return predicted.item()                   # return as integer
