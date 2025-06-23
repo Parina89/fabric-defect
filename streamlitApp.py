@@ -63,7 +63,7 @@ def transform_image(image):
     return transform(image).unsqueeze(0)  # Add batch dimension
 
 def get_prediction(image):
-    model = load_model()
+    #model = load_model()
     image = transform_image(image).to(device)  # Move image to device
     with torch.no_grad():                     # No gradient tracking
         outputs = model(image)             
