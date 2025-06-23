@@ -79,7 +79,7 @@ def get_prediction(image):
     return predicted.item()                   # return as integer
 
 
-class_labels = ['fabric_images']  # adjust as per your training labels
+class_labels = ['defect-free','stain']  # adjust as per your training labels
 
 if uploaded_file is not None:
     image = Image.open(uploaded_file).convert('RGB')
@@ -91,10 +91,10 @@ if uploaded_file is not None:
 
     st.success(f"Prediction: **{result}**")
 
-if result == 'fabric_images':
-        st.error(f"Prediction: {result}\n\nThe fabric appears to have visible stains.")
+if prediction == 0:
+    print("Prediction: defect-free")
 else:
-        st.success(f"Prediction: {result}\n\nThe fabric appears to be free of defects.")
+    print("Prediction: stain")
 
 
     
