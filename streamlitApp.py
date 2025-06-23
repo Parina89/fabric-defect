@@ -91,11 +91,12 @@ if uploaded_file is not None:
 
     st.success(f"Prediction: **{result}**")
 
-if prediction == 1:
-    print("Prediction: defect-free")
-else:
-    print("Prediction: stain")
-
+if predicted_class == 1:
+        st.error(f"Prediction: **Stain is visible** (Confidence: {confidence:.2f})")
+    elif predicted_class == 0:
+        st.success(f"Prediction: **Defect-Free** (Confidence: {confidence:.2f})")
+    else:
+        st.warning("Model is uncertain — please verify manually.")
 
     
 
