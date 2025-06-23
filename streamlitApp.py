@@ -79,8 +79,8 @@ if uploaded_file is not None:
     st.image(image, caption='Uploaded Fabric Image', use_column_width=True)
     st.write("Classifying...")
 
-    prediction = get_prediction(image) 
-    result = class_labels[prediction]
+    result = get_prediction(image) 
+    #result = class_labels[prediction]
 
     st.success(f"Prediction: **{result}**")
 
