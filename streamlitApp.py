@@ -93,7 +93,7 @@ if uploaded_file is not None:
 
 if prediction == "Stain":
         st.error(f"Prediction: {prediction}\n\nThe fabric appears to have visible stains.")
-    else:
+else:
         st.success(f"Prediction: {prediction}\n\nThe fabric appears to be free of defects.")
 
 
