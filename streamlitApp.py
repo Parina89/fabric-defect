@@ -61,25 +61,16 @@ def transform_image(image):
                              std=[0.229, 0.224, 0.225])
     ])
     return transform(image).unsqueeze(0)  # Add batch dimension
-    
-def get_prediction(image):
-    model = load_model()
-    image = transform_image(image).to(device)  # Move image to device
-    with torch.no_grad():                     # No gradient tracking
-        outputs = model(image)             
-        # forward pass
-        outputs = model(image)
-    probabilities = torch.nn.functional.softmax(outputs, dim=1)
-    confidence, predicted = torch.max(probabilities, 1)
-    if confidence.item() < 0.6:
-       result = "Uncertain — manual check needed"
-    else:
-       result = class_labels[predicted.item()]
-    _, predicted = torch.max(outputs, 1)  # get index of the max log-probability
-    return predicted.item()                   # return as integer
-
 
 class_labels = ['defect-free','stain']  # adjust as per your training labels
+
+def get_prediction(image):
+    image = transform_image(image).to(device)
+    with torch.no_grad():
+        outputs = model(image)
+        probabilities = F.softmax(outputs, dim=1)
+        confidence, predicted = torch.max(probabilities, 1)
+        return predicted.item(), confidence.item()
 
 if uploaded_file is not None:
     image = Image.open(uploaded_file).convert('RGB')
