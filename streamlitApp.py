@@ -18,7 +18,7 @@ with st.sidebar:
     st.write("This app helps detect defects like stains on fabrics produced by power looms. It ensures quality control in real-time production environments using AI-based image classification.")
 
 # Image Upload
-uploaded_file = st.file_uploader("Choose a fabric image...", type=["jpg", "jpeg", "png"])
+#uploaded_file = st.file_uploader("Choose a fabric image...", type=["jpg", "jpeg", "png"])
 
 # Device configuration
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
