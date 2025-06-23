@@ -63,12 +63,14 @@ def transform_image(image):
     return transform(image).unsqueeze(0)  # Add batch dimension
 
 def get_prediction(image):
-    image = transform_image(image).to(device)
-    with torch.no_grad():
+    model = load_model()
+    image = transform_image(image).to(device)  # Move image to device
+    with torch.no_grad():                     # No gradient tracking
+        outputs = model(image)             
+        # forward pass
         outputs = model(image)
-        probabilities = F.softmax(outputs, dim=1)
-        confidence, predicted = torch.max(probabilities, 1)
-        return predicted.item(), confidence.item()
+    _, predicted = torch.max(outputs, 1)  # get index of the max log-probability
+    return predicted.item()                   # return as integer
 
 class_labels = ['defect-free','stain']  # adjust as per your training labels
 
@@ -77,17 +79,17 @@ if uploaded_file is not None:
     st.image(image, caption='Uploaded Fabric Image', use_column_width=True)
     st.write("Classifying...")
 
-    prediction, confidence = get_prediction(image)
+    prediction = get_prediction(image) 
     result = class_labels[prediction]
 
     st.success(f"Prediction: **{result}**")
 
-if prediction == 1:
-        st.error(f"Prediction: **Stain is visible** (Confidence: {confidence:.2f})")
-elif prediction == 0:
-        st.success(f"Prediction: **Defect-Free** (Confidence: {confidence:.2f})")
+if result == 'Defect-Free':
+            st.info("The fabric appears to be free of defects.")
 else:
-        st.warning("Model is uncertain — please verify manually.")
-
-    
+            st.warning("Stain detected! Please check this fabric.")
+except Exception as e:
+        st.error(f"An error occurred: {e}")
+else:
+    st.warning("Please upload an image to classify.")
 
