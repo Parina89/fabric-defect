@@ -62,8 +62,6 @@ def transform_image(image):
     ])
     return transform(image).unsqueeze(0)  # Add batch dimension
 
-class_labels = ['defect-free','stain']  # adjust as per your training labels
-
 def get_prediction(image):
     image = transform_image(image).to(device)
     with torch.no_grad():
@@ -71,6 +69,8 @@ def get_prediction(image):
         probabilities = F.softmax(outputs, dim=1)
         confidence, predicted = torch.max(probabilities, 1)
         return predicted.item(), confidence.item()
+
+class_labels = ['defect-free','stain']  # adjust as per your training labels
 
 if uploaded_file is not None:
     image = Image.open(uploaded_file).convert('RGB')
