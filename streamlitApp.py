@@ -91,7 +91,7 @@ if uploaded_file is not None:
 
     st.success(f"Prediction: **{result}**")
 
-if prediction == 0:
+if prediction == 1:
     print("Prediction: defect-free")
 else:
     print("Prediction: stain")
