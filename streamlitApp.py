@@ -70,7 +70,7 @@ def get_prediction(image):
     _, predicted = torch.max(outputs, 1)  # get index of the max log-probability
     return predicted.item()                   # return as integer
 
-class_labels = ['defect-free, stain']  # adjust as per your training labels
+class_labels = ['defect-free','stain']  # adjust as per your training labels
 
 uploaded_file = st.file_uploader("Choose a fabric image...", type=["jpg", "jpeg", "png"])
 
