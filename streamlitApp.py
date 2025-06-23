@@ -74,6 +74,8 @@ def get_prediction(image):
 
 class_labels = ['defect-free','stain']  # adjust as per your training labels
 
+uploaded_file = st.file_uploader("Choose a fabric image...", type=["jpg", "jpeg", "png"])
+
 if uploaded_file is not None:
     image = Image.open(uploaded_file).convert('RGB')
     st.image(image, caption='Uploaded Fabric Image', use_column_width=True)
