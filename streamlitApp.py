@@ -91,9 +91,9 @@ if uploaded_file is not None:
 
     st.success(f"Prediction: **{result}**")
 
-if predicted_class == 1:
+if prediction == 1:
         st.error(f"Prediction: **Stain is visible** (Confidence: {confidence:.2f})")
-elif predicted_class == 0:
+elif prediction == 0:
         st.success(f"Prediction: **Defect-Free** (Confidence: {confidence:.2f})")
 else:
         st.warning("Model is uncertain — please verify manually.")
