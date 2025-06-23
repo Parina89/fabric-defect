@@ -67,8 +67,6 @@ def get_prediction(image):
     image = transform_image(image).to(device)  # Move image to device
     with torch.no_grad():                     # No gradient tracking
         outputs = model(image)             
-        # forward pass
-        outputs = model(image)
     _, predicted = torch.max(outputs, 1)  # get index of the max log-probability
     return predicted.item()                   # return as integer
 
