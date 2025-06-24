@@ -4,6 +4,7 @@ import torch.nn as nn
 from torchvision import transforms, models
 from PIL import Image
 import torch.nn.functional as F
+import numpy
 
 # Set page config
 st.set_page_config(page_title="Fabric Inspector", page_icon="🧵")
