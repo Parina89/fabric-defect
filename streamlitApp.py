@@ -68,7 +68,9 @@ def get_prediction(image):
     #_, predicted = torch.max(outputs, 1)  # Pick the class with highest score
     probs = torch.sigmoid(outputs).detach().cpu().numpy().squeeze()
     print("Model probabilities:", probs)  # Temporarily add this for debugging
-    label = "defect-free" if  0.33 <= 0.5 else "stain" 0.33 > 0.2 
+    label = "defect-free" 
+    if  0.33 <= 0.5 
+    elif: "stain" 0.33 > 0.2 
     return label
 
 class_labels = ['defect-free','stain']# adjust as per your training labels
