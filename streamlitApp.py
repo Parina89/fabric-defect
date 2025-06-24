@@ -59,13 +59,12 @@ def transform_image(image):
     ])
     return transform(image).unsqueeze(0)  # Add batch dimension
 
+# Prediction
 def get_prediction(image):
-    #model = load_model()
-    image = transform_image(image).to(device)  # Move image to device
-    with torch.no_grad():                     # No gradient tracking
-        outputs = model(image)             
-    _, predicted = torch.max(outputs, 1)  # get index of the max log-probability
-    return predicted.item()                   # return as integer
+    image = transform_image(image)  # Add batch dimension
+    outputs = model(image)  # Use the loaded model
+    _, predicted = torch.max(outputs, 1)
+    return predicted.item()
 
 class_labels = ['defect-free','stain']  # adjust as per your training labels
 
