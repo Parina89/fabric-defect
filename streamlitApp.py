@@ -84,9 +84,9 @@ if uploaded_file is not None:
     result = "defect-free" if probs < 0.5 else "stain"
 
     if result == "defect-free":
-       print " The fabric has no stains "
+       print (" The fabric has no stains ")
     else:
-       print " Stain detected! Please check this fabric"
+       print (" Stain detected! Please check this fabric")
     #if result == 'defect-free':
         #st.success("The fabric appears to be free of defects.")
     #else:
