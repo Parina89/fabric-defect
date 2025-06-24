@@ -70,7 +70,7 @@ def get_prediction(image):
     label = "defect-free" if predicted == 0 else "stain"
     return predicted.item()
 
-class_labels = "defect-free" if probs < 0.5 else "stain"  # adjust as per your training labels
+class_labels = ['defect-free','stain']# adjust as per your training labels
 
 #uploaded_file = st.file_uploader("Choose a fabric image...", type=["jpg", "jpeg", "png"])
 
