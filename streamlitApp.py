@@ -78,12 +78,12 @@ if uploaded_file is not None:
     st.image(image, caption='Uploaded Fabric Image', use_column_width=True)
     st.write("Classifying...")
 
-    prediction = get_prediction(image) 
+    prediction = get_prediction(image)
     result = class_labels[prediction]
 
     st.success(f"Prediction: **{result}**")
 
-if result == 'defect-free':
-    st.success("The fabric appears to be free of defects.")
-else:
-    st.error("Stain detected! Please check this fabric.")
+    if result == 'defect-free':
+        st.success("The fabric appears to be free of defects.")
+    else:
+        st.error("Stain detected! Please check this fabric.")
