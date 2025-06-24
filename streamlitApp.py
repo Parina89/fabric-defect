@@ -65,7 +65,9 @@ def transform_image(image):
 def get_prediction(image):
     image = transform_image(image)  # Add batch dimension
     outputs = model(image)  # Use the loaded model
-    _, predicted = torch.max(outputs, 0)
+    #_, predicted = torch.max(outputs, 0)
+    predicted = torch.max(outputs, 0).indices.item()
+    label = "defect-free" if predicted == 0 else "stain"
     return predicted.item()
 
 class_labels = "defect-free" if probs < 0.5 else "stain"  # adjust as per your training labels
