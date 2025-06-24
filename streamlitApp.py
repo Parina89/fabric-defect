@@ -64,8 +64,8 @@ def get_prediction(image):
     image = transform_image(image)  # Add batch dimension
     outputs = model(image)  # Use the loaded model
     _, predicted = torch.max(outputs, 0)
-    _,predicted_item1 = torch.max(outputs,1)
-    return predicted.item(),predicted_item1.item()
+    _, predicted = torch.max(outputs, 1)
+    return predicted.item()
 
 class_labels = ['defect-free','stain']  # adjust as per your training labels
 
