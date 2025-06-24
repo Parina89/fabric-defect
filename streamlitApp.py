@@ -64,8 +64,8 @@ def transform_image(image):
 def get_prediction(image):
     image = transform_image(image)  # Add batch dimension
     outputs = model(image)          # Get model output (logits or probabilities)
-    _, predicted = torch.max(outputs, 1)  # Pick the class with highest score
-    label = "defect-free" if predicted.item() == 0 else "stain"
+    _, predicted = torch.max(outputs, 0)  # Pick the class with highest score
+    label = "defect-free" if predicted.item() == 1 else "stain"
     return predicted.item()
 
 class_labels = ['defect-free','stain']# adjust as per your training labels
@@ -81,12 +81,8 @@ if uploaded_file is not None:
     result = class_labels[prediction]
 
     st.success(f"Prediction: **{result}**")
-
-    if result == "defect-free":
-       print (" The fabric has no stains ")
-    else:
-       print (" Stain detected! Please check this fabric")
-    #if result == 'defect-free':
+    
+    if result == 'defect-free':
         #st.success("The fabric appears to be free of defects.")
-    #else:
+    else:
         #st.error("Stain detected! Please check this fabric.")
