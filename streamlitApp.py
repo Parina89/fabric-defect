@@ -17,6 +17,8 @@ with st.sidebar:
     st.header("About Project")
     st.write("This app helps detect defects like stains on fabrics produced by power looms. It ensures quality control in real-time production environments using AI-based image classification.")
 
+uploaded_file = st.file_uploader("Choose a fabric image...", type=["jpg", "jpeg", "png"])
+
 # Device configuration
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -69,7 +71,7 @@ def get_prediction(image):
 
 class_labels = ['defect-free','stain']  # adjust as per your training labels
 
-uploaded_file = st.file_uploader("Choose a fabric image...", type=["jpg", "jpeg", "png"])
+#uploaded_file = st.file_uploader("Choose a fabric image...", type=["jpg", "jpeg", "png"])
 
 if uploaded_file is not None:
     image = Image.open(uploaded_file).convert('RGB')
