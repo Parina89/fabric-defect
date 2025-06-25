@@ -63,7 +63,10 @@ def transform_image(image):
     return transform(image).unsqueeze(0)  # Add batch dimension
 
 def get_prediction(image):
-    image = transform_image(image)  # Add batch dimension
+    with torch.no_grad():
+    # Transform image for model input
+    image_tensor = transform_image(image)
+    #image = transform_image(image)  # Add batch dimension
     outputs = model(image)          # Get model output (logits or probabilities)
     #_, predicted = torch.max(outputs, 1)  # Pick the class with highest score
     probs = torch.sigmoid(outputs).detach().cpu().numpy().squeeze()
