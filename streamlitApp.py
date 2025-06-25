@@ -72,7 +72,7 @@ def get_prediction(image):
     if len(probs.shape) == 0:  # Single output (binary classification)
        label = "stain" if probs > 0.5 else "defect-free"
     else: # Multiple outputs
-       label = "defect-free" if probs < = 0.5 else "stain"
+       label = "defect-free" if probs ≤ 0.5 else "stain"
     return label
 
 class_labels = ['defect-free','stain'] # adjust as per your training labels
