@@ -63,9 +63,6 @@ def transform_image(image):
     return transform(image).unsqueeze(0)  # Add batch dimension
 
 def get_prediction(image):
-    with torch.no_grad():
-    # Transform image for model input
-    #image_tensor = transform_image(image)
     image = transform_image(image)  # Add batch dimension
     outputs = model(image)          # Get model output (logits or probabilities)
     #_, predicted = torch.max(outputs, 1)  # Pick the class with highest score
@@ -75,7 +72,7 @@ def get_prediction(image):
     if len(probs.shape) == 0:  # Single output (binary classification)
        label = "stain" if probs > 0.5 else "defect-free"
     else: # Multiple outputs
-       label = "stain" if probs[0] > 0.5 else "defect-free"
+       label = "defetc-free" if probs[0] > 0.5 else "stain"
     return label
 
 class_labels = ['defect-free','stain'] # adjust as per your training labels
