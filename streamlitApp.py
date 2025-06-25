@@ -68,12 +68,10 @@ def get_prediction(image):
     #_, predicted = torch.max(outputs, 1)  # Pick the class with highest score
     probs = torch.sigmoid(outputs).detach().cpu().numpy().squeeze()
     print("Model probabilities:", probs)  # Temporarily add this for debugging
-    label = "defect-free" if probs[0] <= 0.7 else "stain"
+    label = "defect-free" if probs[0] <= 8 else "stain"
     return label
 
-class_labels = ['defect-free','stain']# adjust as per your training labels
-
-#uploaded_file = st.file_uploader("Choose a fabric image...", type=["jpg", "jpeg", "png"])
+class_labels = ['defect-free','stain'] # adjust as per your training labels
 
 if uploaded_file is not None:
     image = Image.open(uploaded_file).convert('RGB')
@@ -82,8 +80,6 @@ if uploaded_file is not None:
 
     prediction = get_prediction(image)
     result = prediction
-#st.success(f"Prediction: **{result}**")
-    #result = class_labels[prediction]
 
     st.success(f"Prediction: **{result}**")
     
