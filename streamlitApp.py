@@ -70,10 +70,11 @@ def get_prediction(image):
     #print("Model probabilities:" , probs)  # Temporarily add this for debugging
     #label = "defect-free" if probs[0] <= 0.5 else "stain"
  # Try this inverted logic
-if len(probs.shape) == 0:  # Single output
-    label = "stain" if probs < 0.5 else "defect-free"  # Inverted
-else:  # Multiple outputs  
-    label = "stain" if probs[0] < 0.3 else "defect-free"  # Inverted with lower threshold
+    if len(probs.shape) == 0:  # Single output
+       label = "stain" if probs < 0.5 else "defect-free"  # Inverted
+    else:  # Multiple outputs  
+       label = "stain" if probs[0] < 0.3 else "defect-free"  # Inverted with lower threshold
+    return label
 
 #class_labels = ['defect-free','stain'] # adjust as per your training labels
 
@@ -93,3 +94,4 @@ if uploaded_file is not None:
         st.success("The fabric appears to be free of defects.")
     else:
         st.error("Stain detected! Please check this fabric.")
+    return
