@@ -64,7 +64,7 @@ def transform_image(image):
 # Prediction logic
 def get_prediction(image):
     image = transform_image(image)
-    outputs = model(image)
+    #outputs = model(image)
     probs = torch.softmax(outputs, dim=1).detach().cpu().numpy().squeeze()
     predicted_class = np.argmax(probs)
     class_labels = ['defect-free', 'stain']
