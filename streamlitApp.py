@@ -65,7 +65,7 @@ def transform_image(image):
 def get_prediction(image):
     image = transform_image(image)  # Add batch dimension
     outputs = model(image)          # Get model output (logits or probabilities)
-    #_, predicted = torch.max(outputs, 1)  # Pick the class with highest score
+    _, predicted = torch.max(outputs, 1)  # Pick the class with highest score
     probs = torch.sigmoid(outputs).detach().cpu().numpy().squeeze()
     #print("Model probabilities:" , probs)  # Temporarily add this for debugging
     #label = "defect-free" if probs[0] <= 0.5 else "stain"
