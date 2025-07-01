@@ -66,13 +66,13 @@ def get_prediction(image):
     image = transform_image(image)  # Add batch dimension
     outputs = model(image)          # Get model output (logits or probabilities)
     _, predicted = torch.max(outputs, 1)  # Pick the class with highest score
-    probs = torch.sigmoid(outputs).detach().cpu().numpy().squeeze()
+    #probs = torch.sigmoid(outputs).detach().cpu().numpy().squeeze()
     #print("Model probabilities:" , probs)  # Temporarily add this for debugging
     #label = "defect-free" if probs[0] <= 0.5 else "stain"
-    if len(probs.shape) == 0:  # Single output (binary classification)
+    if len(probs.shape) == 1:  # Single output (binary classification)
         label = "stain" if probs > 0.5 else "defect-free"
     else:  # Multiple outputs
-        label = "stain" if probs[0] > 0.5 else "defect-free"
+        label = "stain" if probs[1] > 0.5 else "defect-free"
     return label
     
 if uploaded_file is not None:
