@@ -82,9 +82,9 @@ if uploaded_file is not None:
     st.write("Classifying...")
 
     prediction = get_prediction(image)
-    result = classlabels[get_prediction(image)]
+    result = classlabels[prediction]
     
-    st.success(f"Prediction: **{result}**")
+    st.success(f"prediction: **{result}**")
     
     if result == 'defect-free':
         st.success("The fabric appears to be free of defects.")
