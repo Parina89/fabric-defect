@@ -69,7 +69,8 @@ def get_prediction(image):
     probs = torch.sigmoid(outputs).detach().cpu().numpy().squeeze()
     #print("Model probabilities:" , probs)  # Temporarily add this for debugging
     #label = "defect-free" if probs[0] <= 0.5 else "stain"
-    label = "stain" if prob_value < 0.5 else "defect-free"
+     if len(probs.shape) == 1:
+         label = "stain" if prob_value < 0.5 else "defect-free"
  # Try this inverted logic
     
 if uploaded_file is not None:
