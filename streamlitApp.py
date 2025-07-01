@@ -75,13 +75,14 @@ def get_prediction(image):
         label = "stain" if probs[0] > 0.5 else "defect-free"
     return label
 
-class_labels = ['defect-free','stain'] # adjust as per your training labels
+#class_labels = ['defect-free','stain'] # adjust as per your training labels
 
 if uploaded_file is not None:
     image = Image.open(uploaded_file).convert('RGB')
     st.image(image, caption='Uploaded Fabric Image', use_column_width=True)
     st.write("Classifying...")
-
+    
+    class_labels = ['defect-free','stain'] # adjust as per your training labels 
     prediction = get_prediction(image)
     result = class_labels[prediction]   # index the class label list correctly
 
