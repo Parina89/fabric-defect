@@ -73,6 +73,7 @@ def get_prediction(image):
         label = "stain" if probs > 0.5 else "defect-free"
     else:  # Multiple outputs
         label = "stain" if probs[0] > 0.5 else "defect-free"
+    return label
 
 classlabels = ['defect-free','stain'] # adjust as per your training labels
 
@@ -84,7 +85,7 @@ if uploaded_file is not None:
     prediction = get_prediction(image)
     result = classlabels[prediction]
     
-    st.success(f"prediction: **{result}**")
+    st.success(f"Prediction: **{result}**")
     
     if result == 'defect-free':
         st.success("The fabric appears to be free of defects.")
