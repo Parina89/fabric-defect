@@ -73,7 +73,6 @@ def get_prediction(image):
         label = "stain" if probs > 0.5 else "defect-free"
     else:  # Multiple outputs
         label = "stain" if probs[0] > 0.5 else "defect-free"
-    return label
 
 #class_labels = ['defect-free','stain'] # adjust as per your training labels
 
