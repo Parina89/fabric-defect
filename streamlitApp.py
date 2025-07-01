@@ -49,7 +49,7 @@ def load_model():
     model.eval()
     return model
 
-model = load_model()
+#model = load_model()
 
 # Image transform
 def transform_image(image):
