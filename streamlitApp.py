@@ -70,7 +70,7 @@ def get_prediction(image):
     #print("Model probabilities:" , probs)  # Temporarily add this for debugging
     #label = "defect-free" if probs[0] <= 0.5 else "stain"
     if len(probs.shape) == 0:  # Single output (binary classification)
-        label = "defect-free" if probs > 0.5 else "stain"
+        label = "defect-free" if probs > 0.5 else "defect-free"
     else:  # Multiple outputs
         label = "stain" if probs[0] > 0.5 else "stain"
     return label
