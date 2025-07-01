@@ -84,7 +84,8 @@ if uploaded_file is not None:
     
     class_labels = ['defect-free','stain'] # adjust as per your training labels 
     prediction = get_prediction(image)
-    result = class_labels[prediction]   # index the class label list correctly
+    result = prediction  # already the label
+
 
     st.success(f"Prediction: **{result}**")
     
