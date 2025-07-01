@@ -1,3 +1,4 @@
+
 import streamlit as st 
 import torch
 import torch.nn as nn
@@ -5,7 +6,6 @@ from torchvision import transforms, models
 from PIL import Image
 import torch.nn.functional as F
 import numpy as np
-import os
 
 # Set page config
 st.set_page_config(page_title="Fabric Inspector", page_icon="🧵")
@@ -14,14 +14,8 @@ st.write("Upload an image of fabric and the AI model will classify it as 'Defect
 
 # Sidebar information
 with st.sidebar:
-    # Check if fabric.png exists, otherwise show a placeholder
-    fabric_image_path = "fabric.png"
-    if os.path.exists(fabric_image_path):
-        img = Image.open(fabric_image_path)
-        st.image(img)
-    else:
-        st.info("Add fabric.png to display sidebar image")
-    
+    img = Image.open(r"fabric.png")
+    st.image(img)
     st.header("About Project")
     st.write("This app helps detect defects like stains on fabrics produced by power looms. It ensures quality control in real-time production environments using AI-based image classification.")
 
@@ -30,16 +24,16 @@ uploaded_file = st.file_uploader("Choose a fabric image...", type=["jpg", "jpeg"
 # Device configuration
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-# Define model architecture (Simple CNN)
+# Define model architecture (Simple Transfer Learning)
 class FabricDefectClassifier(nn.Module):
-    def __init__(self):  # Fixed __init__ method
+    def __init__(self):
         super(FabricDefectClassifier, self).__init__()
         self.conv1 = nn.Conv2d(3, 16, kernel_size=3, padding=1)
         self.pool = nn.MaxPool2d(2, 2)
         self.conv2 = nn.Conv2d(16, 32, kernel_size=3, padding=1)
         self.fc1 = nn.Linear(32 * 56 * 56, 128)
-        self.fc2 = nn.Linear(128, 2)  # 2 classes: defect-free, stain
-        
+        self.fc2 = nn.Linear(128, 2)
+
     def forward(self, x):
         x = self.pool(F.relu(self.conv1(x)))
         x = self.pool(F.relu(self.conv2(x)))
@@ -48,22 +42,16 @@ class FabricDefectClassifier(nn.Module):
         x = self.fc2(x)
         return x
 
-# Load model with proper error handling
-@st.cache_resource  # Updated cache decorator
+# Load model (Assuming you have trained model stored as 'fabric_model.pth')
+@st.cache(allow_output_mutation=True)
 def load_model():
-    
-        model = FabricDefectClassifier()
-        model_path = f"textile.pth"  # Make sure this file exists
-        
-            
-        # Fixed model loading
-        model.load_state_dict(torch.load(model_path, map_location=device))
-        model.eval()  # Set to evaluation mode
-        model.to(device)
-        return model
-    except Exception as e:
-        st.error(f"Error loading model: {str(e)}")
-        return None
+    model = FabricDefectClassifier()
+    model_path = r"textile.pth"  # <-- Update path
+    model.load_state_dict = torch.load(model_path, map_location=device)
+    #model.eval()
+    return model
+
+model = load_model()
 
 # Image Transformations
 def transform_image(image):
@@ -75,94 +63,31 @@ def transform_image(image):
     ])
     return transform(image).unsqueeze(0)  # Add batch dimension
 
-def get_prediction(image, model):
-    if model is None:
-        return "Error: Model not loaded"
-    
-    try:
-        # Set model to evaluation mode
-        model.eval()
-        
-        with torch.no_grad():  # Disable gradient computation
-            # Transform image
-            image_tensor = transform_image(image).to(device)
-            
-            # Get model output
-            outputs = model(image_tensor)
-            
-            # Apply softmax to get probabilities for 2-class output
-            probs = F.softmax(outputs, dim=1).detach().cpu().numpy().squeeze()
-            
-            # Debug information (optional - can be removed in production)
-            st.write(f"Model probabilities: Defect-free: {probs[0]:.4f}, Stain: {probs[1]:.4f}")
-            
-            # Get prediction based on highest probability
-            predicted_class = np.argmax(probs)
-            
-            # Map to class labels
-            class_labels = ['defect-free', 'stain']
-            label = class_labels[predicted_class]
-            confidence = probs[predicted_class]
-            
-            return label, confidence
-            
-    except Exception as e:
-        st.error(f"Error during prediction: {str(e)}")
-        return "Error", 0.0
+def get_prediction(image):
+    image = transform_image(image)  # Add batch dimension
+    outputs = model(image)          # Get model output (logits or probabilities)
+    #_, predicted = torch.max(outputs, 1)  # Pick the class with highest score
+    probs = torch.sigmoid(outputs).detach().cpu().numpy().squeeze()
+    #print("Model probabilities:" , probs)  # Temporarily add this for debugging
+    #label = "defect-free" if probs[0] <= 0.5 else "stain"
+    if len(probs.shape) == 0:  # Single output (binary classification)
+        label = "stain" if probs > 0.5 else "defect-free"
+    else:  # Multiple outputs
+        label = "stain" if probs[0] > 0.5 else "defect-free"
 
-# Load the model
-model = load_model()
+class_labels = ['defect-free','stain'] # adjust as per your training labels
 
-# Main app logic
 if uploaded_file is not None:
-    try:
-        # Load and display image
-        image = Image.open(uploaded_file).convert('RGB')
-        st.image(image, caption='Uploaded Fabric Image', use_column_width=True)
-        
-        if model is not None:
-            st.write("Classifying...")
-            
-            # Get prediction
-            result = get_prediction(image, model)
-            
-            if isinstance(result, tuple):
-                prediction, confidence = result
-                
-                # Display results
-                st.success(f"**Prediction: {prediction.upper()}**")
-                st.info(f"**Confidence: {confidence:.2%}**")
-                
-                # Provide appropriate feedback
-                if prediction == 'defect-free':
-                    st.success("✅ The fabric appears to be free of defects.")
-                else:
-                    st.error("⚠️ Stain detected! Please check this fabric.")
-                    
-                # Add confidence-based warnings
-                if confidence < 0.7:
-                    st.warning("⚡ Low confidence prediction. Consider manual inspection.")
-                    
-            else:
-                st.error("Error in prediction process.")
-        else:
-            st.error("Model could not be loaded. Please check if 'textile.pth' exists and is valid.")
-            
-    except Exception as e:
-        st.error(f"Error processing image: {str(e)}")
+    image = Image.open(uploaded_file).convert('RGB')
+    st.image(image, caption='Uploaded Fabric Image', use_column_width=True)
+    st.write("Classifying...")
 
-else:
-    st.info("👆 Please upload a fabric image to get started.")
+    prediction = get_prediction(image)
+    result = prediction
+
+    st.success(f"Prediction: **{result}**")
     
-    # Optional: Show example or instructions
-    st.markdown("""
-    ### Instructions:
-    1. Upload a clear image of fabric
-    2. Supported formats: JPG, JPEG, PNG
-    3. The AI will analyze the image and detect stains or defects
-    4. Results will show the prediction with confidence score
-    """)
-
-# Footer
-st.markdown("---")
-st.markdown("Made with Streamlit 🎈")
+    if result == 'defect-free':
+        st.success("The fabric appears to be free of defects.")
+    else:
+        st.error("Stain detected! Please check this fabric.")
