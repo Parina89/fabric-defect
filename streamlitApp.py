@@ -75,7 +75,7 @@ def get_prediction(image):
         label = "stain" if probs[0] > 0.5 else "defect-free"
     return label
 
-classlabels = ['defect-free','stain'] # adjust as per your training labels
+class_labels = ['defect-free','stain'] # adjust as per your training labels
 
 if uploaded_file is not None:
     image = Image.open(uploaded_file).convert('RGB')
@@ -83,9 +83,8 @@ if uploaded_file is not None:
     st.write("Classifying...")
 
     prediction = get_prediction(image)
-    result = classlabels
-    return prediction
-    
+    result = class_labels[prediction]   # index the class label list correctly
+
     st.success(f"Prediction: **{result}**")
     
     if result == 'defect-free':
