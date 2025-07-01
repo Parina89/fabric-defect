@@ -72,7 +72,7 @@ def get_prediction(image):
     if len(probs.shape) == 0:  # Single output (binary classification)
         label = "stain" if probs > 0.5 else "defect-free"
     else:  # Multiple outputs
-        label = "stain" if probs[0] > 0.7 else "defect-free"
+        label = "stain" if probs[0] > 0.5 else "defect-free"
     return label
     
 if uploaded_file is not None:
