@@ -82,7 +82,7 @@ if uploaded_file is not None:
     st.write("Classifying...")
 
     prediction = get_prediction(image)
-    result = prediction
+    result = prediction(class_labels)
 
     st.success(f"Prediction: **{result}**")
     
