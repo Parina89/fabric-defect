@@ -69,15 +69,9 @@ def get_prediction(image):
     probs = torch.sigmoid(outputs).detach().cpu().numpy().squeeze()
     #print("Model probabilities:" , probs)  # Temporarily add this for debugging
     #label = "defect-free" if probs[0] <= 0.5 else "stain"
+    label = "stain" if prob_value < 0.5 else "defect-free"
  # Try this inverted logic
-    if len(probs.shape) == 0:  # Single output
-       label = "stain" if probs < 0.5 else "defect-free"  # Inverted
-    else:  # Multiple outputs  
-       label = "stain" if probs[0] < 0.5 else "defect-free"  # Inverted with lower threshold
-    return label
-
-#class_labels = ['defect-free','stain'] # adjust as per your training labels
-
+    
 if uploaded_file is not None:
     image = Image.open(uploaded_file).convert('RGB')
     st.image(image, caption='Uploaded Fabric Image', use_column_width=True)
