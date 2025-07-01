@@ -73,7 +73,7 @@ def get_prediction(image):
     if len(probs.shape) == 0:  # Single output
        label = "stain" if probs < 0.5 else "defect-free"  # Inverted
     else:  # Multiple outputs  
-       label = "stain" if probs[0] < 0.4 else "defect-free"  # Inverted with lower threshold
+       label = "stain" if probs[0] > 0.5 else "defect-free"  # Inverted with lower threshold
     return label
 
 #class_labels = ['defect-free','stain'] # adjust as per your training labels
