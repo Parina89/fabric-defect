@@ -82,11 +82,16 @@ if uploaded_file is not None:
     st.write("Classifying...")
 
     prediction = get_prediction(image)
+    if prediction is not None and prediction in [0, 1]:
     result = class_labels[prediction]
-
     st.success(f"Prediction: **{result}**")
-    
-    if result == 'defect-free':
-        st.success("The fabric appears to be free of defects.")
     else:
-        st.error("Stain detected! Please check this fabric.")
+    st.error("Prediction failed. Please check the model or input.")
+    #result = class_labels[prediction]
+    
+    #st.success(f"Prediction: **{result}**")
+    
+    #if result == 'defect-free':
+       # st.success("The fabric appears to be free of defects.")
+    #else:
+       # st.error("Stain detected! Please check this fabric.")
