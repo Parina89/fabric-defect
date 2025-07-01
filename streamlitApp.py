@@ -51,13 +51,10 @@ class FabricDefectClassifier(nn.Module):
 # Load model with proper error handling
 @st.cache_resource  # Updated cache decorator
 def load_model():
-    try:
+    
         model = FabricDefectClassifier()
-        model_path = "textile.pth"  # Make sure this file exists
+        model_path = f"textile.pth"  # Make sure this file exists
         
-        if not os.path.exists(model_path):
-            st.error(f"Model file '{model_path}' not found. Please ensure the model file is in the correct location.")
-            return None
             
         # Fixed model loading
         model.load_state_dict(torch.load(model_path, map_location=device))
