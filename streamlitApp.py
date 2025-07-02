@@ -24,7 +24,14 @@ with st.sidebar:
     st.image(img)
     st.header("About Project")
     st.write("This app helps detect defects like stains on fabrics produced by power looms. It ensures quality control in real-time production environments using AI-based image classification.")
-
+    st.markdown("""
+    <style>
+    section[data-testid="st.sidebar"] {
+    background-color: #FFD700;
+    border-right: 2px solid #cccccc;
+    }
+    </style>
+   """, unsafe_allow_html=True)
 uploaded_file = st.file_uploader("Choose a fabric image...", type=["jpg", "jpeg", "png"])
 
 # Device configuration
