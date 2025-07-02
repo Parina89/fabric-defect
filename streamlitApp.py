@@ -10,6 +10,13 @@ import numpy as np
 st.set_page_config(page_title="Fabric Inspector", page_icon="🧵")
 st.title("Fabric Defect Classification on Power Looms")
 st.write("Upload an image of fabric and the AI model will classify it as 'Defect-Free' or 'Stain'.")
+st.markdown("""
+<style>
+.stApp {
+    background-color: #f5f5f5;
+}
+</style>
+""", unsafe_allow_html=True)
 
 # Sidebar information
 with st.sidebar:
@@ -88,6 +95,6 @@ if uploaded_file is not None:
     st.success(f"Prediction: **{result}**")
     
     if result == 'defect-free':
-        st.success("The fabric appears to be free of defects.", "#4CAF50")
+        st.success("The fabric appears to be free of defects.")
     else:
-        st.error("Stain detected! Please check this fabric.", "#f44336")
+        st.error("Stain detected! Please check this fabric.")
