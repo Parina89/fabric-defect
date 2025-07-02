@@ -13,7 +13,7 @@ st.write("Upload an image of fabric and the AI model will classify it as 'Defect
 st.markdown("""
 <style>
 .main {
-    background-color: #F8FAFC;
+    background-color: #5DADE2;
 }
 </style>
 """, unsafe_allow_html=True)
@@ -27,8 +27,8 @@ with st.sidebar:
     st.markdown("""
     <style>
     section[data-testid="stSidebar"]  {
-    background-color: #2C3E50;
-    border-right: 2px solid #cccccc;
+    background-color: #191970;
+    border-right: 2px solid #2C3E50;
     }
     </style>
    """, unsafe_allow_html=True)
