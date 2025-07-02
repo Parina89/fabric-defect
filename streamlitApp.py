@@ -12,7 +12,7 @@ st.title("Fabric Defect Classification on Power Looms")
 st.write("Upload an image of fabric and the AI model will classify it as 'Defect-Free' or 'Stain'.")
 st.markdown("""
 <style>
-.stApp {
+{
     background-color: #2F4F4F;
 }
 </style>
