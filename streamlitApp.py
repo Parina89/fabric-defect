@@ -26,7 +26,7 @@ with st.sidebar:
     st.write("This app helps detect defects like stains on fabrics produced by power looms. It ensures quality control in real-time production environments using AI-based image classification.")
     st.markdown("""
     <style>
-    section[data-testid="st.sidebar"] {
+    st.sidebar {
     background-color: #FFD700;
     border-right: 2px solid #cccccc;
     }
